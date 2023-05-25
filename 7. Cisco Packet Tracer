@@ -1,0 +1,117 @@
+#include <Wire.h>
+
+#define MY_ALTITUDE 262 // Define altitude at your location to calculate mean sea level pressure in meters
+const int SENSOR_ADDRESS = 0x60; // MPL3115A2 address from the datasheet
+#define SENSOR_CONTROL_REG_1 0x26
+#define SENSOR_DR_STATUS 0x00
+#define SENSOR_OUT_P_MSB 0x01
+
+float baroAltitudeCorrectionFactor = 1 / pow(1 - MY_ALTITUDE / 44330.77, 5.255877);
+byte I2Cdata[5] = {0, 0, 0, 0, 0};
+
+void setup() {
+  Wire.begin();
+  Serial.begin(9600);
+  Serial.println("Setup");
+  I2C_Write(SENSOR_CONTROL_REG_1, 0b00000000); // Put in standby mode
+  I2C_Write(SENSOR_CONTROL_REG_1, 0b00111000); // Set oversampling to 128
+  Serial.println("Done.");
+}
+
+void loop() {
+  float temperature, pressure, baroPressure;
+  Read_Sensor_Data();
+  temperature = Calc_Temperature();
+  pressure = Calc_Pressure();
+  baroPressure = pressure * baroAltitudeCorrectionFactor;
+  
+  Serial.print("Absolute pressure: ");
+  Serial.print(pressure); // in Pascal
+  Serial.print(" Pa, Barometer: ");
+  Serial.print(baroPressure); // in Pascal
+  Serial.print(" Pa, Temperature: ");
+  Serial.print(temperature); // in degrees Celsius
+  Serial.println(" °C");
+  
+  delay(1000);
+}
+
+void Read_Sensor_Data() {
+  I2C_Write(SENSOR_CONTROL_REG_1, 0b00111010); // Request a single measurement from the sensor
+  do {
+    Wire.requestFrom(SENSOR_ADDRESS, 1);
+  } while ((Wire.read() & 0b00000010) != 0);
+  
+  I2C_ReadData(); // Read registers from the sensor
+}
+
+float Calc_Pressure() {
+  unsigned long m_pressure = I2Cdata[0];
+  unsigned long c_pressure = I2Cdata[1];
+  float l_pressure = (float)(I2Cdata[2] >> 4) / 4;
+  return ((float)(m_pressure << 10 | c_pressure << 2) + l_pressure);
+}
+
+float Calc_Temperature() {
+  int m_temp = I2Cdata[3]; // Temperature in whole degrees Celsius
+  float l_temp = (float)(I2Cdata[4] >> 4) / 16.0; // Fractional portion of temperature
+  return ((float)(m_temp + l_temp));
+}
+
+void I2C_ReadData() {
+  byte readUnsuccessful;
+  do {
+    byte i = 0;
+    byte dataStatus = 0;
+    
+    Wire.beginTransmission(SENSOR_ADDRESS);
+    Wire.write(SENSOR_OUT_P_MSB);
+    Wire.endTransmission(false);
+    
+    Wire.requestFrom(SENSOR_ADDRESS, 5); // Read 5 bytes: 3 for pressure, 2 for temperature
+    while (Wire.available())
+      I2Cdata[i++] = Wire.read();
+    
+    Wire.beginTransmission(SENSOR_ADDRESS);
+    Wire.write(SENSOR_DR_STATUS);
+    Wire.endTransmission(false);
+    
+    Wire.requestFrom(SENSOR_ADDRESS, 1);
+    dataStatus = Wire.read();
+    readUnsuccessful = (dataStatus & 0x60) != 0;
+  } while (readUnsuccessful);
+}
+
+void I2C_Write(byte regAddr, byte value) {
+  Wire.beginTransmission(SENSOR_ADDRESS);
+  Wire.write(regAddr);
+  Wire.write(value);
+  Wire.endTransmission(true);
+}
+
+
+Explanation:
+
+The code starts with including the Wire library, which enables I2C communication.
+
+The constants and variables are defined, including the sensor address, control register addresses, altitude correction factor, and a buffer for storing sensor data.
+
+In the setup() function, the Wire and Serial communication are initiated, and the MPL3115A2 sensor is configured by writing values to the control register.
+
+The loop() function is where the main logic resides. It calls the Read_Sensor_Data() function to request and read the sensor data. Then, it calculates the temperature, pressure, and barometric pressure based on the received data.
+
+The Read_Sensor_Data() function sends a request to the sensor for a single measurement and waits until the measurement is completed. It then reads the data from the sensor.
+
+The Calc_Pressure() function assembles the pressure reading from the values in the read buffer. The function handles the fractional bits and returns the calculated pressure value.
+
+The Calc_Temperature() function assembles the temperature reading from the values in the read buffer. It handles the whole and fractional parts and returns the calculated temperature value.
+
+The I2C_ReadData() function reads the sensor data by sending appropriate requests to the sensor and handling any data overwrite issues.
+
+The I2C_Write() function is used to write a byte to a specific register of the sensor.
+
+By implementing this code, you can interface the MPL3115A2 pressure sensor with an Arduino UNO and obtain accurate pressure and temperature readings.
+
+Note: Make sure to connect the MPL3115A2 sensor to the correct I2C pins on the Arduino UNO (A4 for SDA and A5 for SCL).
+
+This code provides a basic example of pressure sensor interfacing with Arduino UNO using the MPL3115A2 sensor. Depending on your specific requirements, you may need to modify the code or add additional functionality.
