@@ -2,6 +2,8 @@
 
 # Practical-1
 
+## OBJECTIVE: To implement the types of topologies such as Star, Hub, Mesh and Bus  using Cisco  Packet Tracer
+
 ## Tools Used : Cisco Packet Tracer
 Description: 
 Cisco Packet Tracer is a network simulation tool developed by Cisco Systems. It is used for designing, configuring, and troubleshooting computer networks. The software allows users to create network topologies, add devices such as routers, switches, PCs, and servers, and simulate the flow of data packets between them.
@@ -27,6 +29,8 @@ Hybrid Topology: This topology combines two or more different types of topologie
 
 # Practical-2
 
+## OBJECTIVE: To implement the Wireless and Wired Networks and understand the OSI  layer model  using Cisco  Packet Tracer
+
 ## Wireless and Wired Networks: the OSI  layer model
 Wireless and wired networks refer to two different types of computer networks based on the method of data transmission. Wired networks use physical cables, such as copper or fiber optic cables, to transmit data between devices, while wireless networks use radio waves to transmit data over the air.
 
@@ -51,6 +55,8 @@ Presentation Layer: This layer is responsible for the representation and encodin
 Application Layer: This layer provides services to end-user applications, such as file transfer, email, and web browsing.
 
 # Practical-3
+
+## OBJECTIVE: To implement the configuration of Routers , Switches and Hubs using Cisco  Packet Tracer
 
 ## Router
 Routers are networking devices operating at layer 3 or a network layer of the OSI model. They are responsible for receiving, analysing, and forwarding data packets among the connected computer networks. When a data packet arrives, the router inspects the destination address, consults its routing tables to decide the optimal route and then transfers the packet along this route.
@@ -88,6 +94,8 @@ A hub has many ports in it. A computer which intends to be connected to the netw
 
 # Practical-4
 
+## OBJECTIVE: To implement the Inter VLAN Routing using Cisco Packet Tracer
+
 ## The Inter VLAN Routing
 A VLAN is a switched network that is logically segmented by function, project team, or application, without regard to the physical locations of the users. VLANs have the same attributes as physical LANs, but you can group end stations even if they are not physically located on the same LAN segment. Any switch port can belong to a VLAN, and unicast, broadcast, and multicast packets are forwarded and flooded only to end stations in the VLAN. Each VLAN is considered a logical network, and packets destined for stations that do not belong to the VLAN must be forwarded through a router or a switch supporting fallback bridging.
  
@@ -98,6 +106,8 @@ The switch supports VLANs in VTP client, server, and transparent modes. VLANs ar
 Configuring Normal-Range VLANs Normal-range VLANs are VLANs with VLAN IDs 1 to 1005. If the switch is in VTP server or VTP transparent mode, you can add, modify, or remove configurations for VLANs 2 to 1001 in the VLAN database. (VLAN IDs 1 and 1002 to 1005 are automatically created and cannot be removed.) Note When the switch is in VTP transparent mode, you can also create extended-range VLANs (VLANs with IDs from 1006 to 4094), but these VLANs are not saved in the VLAN database. 
 
 # Practical-5
+
+## OBJECTIVE: To implement the virtual private network  (VPN) using Cisco  Packet Tracer
 
 ## VPN
  A Virtual Private Network (VPN) connection allows users to access, send, and receive data to and from a private network by means of going through a public or shared network such as the Internet but still ensuring secure connections to an underlying network infrastructure to protect the private network and its resources.
@@ -123,6 +133,8 @@ The objective of this document is to show you how to configure VPN connection on
  
 # Practical-6
 
+## OBJECTIVE: To implement the Temperature sensor interfacing using Arduino UNO
+
 ## Temperature Sensor - LM35:
 The LM35 temperature sensor uses a solid-state technique to measure temperature. It utilizes the relationship between the voltage drop across its diode-connected transistor (Vbe) and the temperature. As the temperature increases, the Vbe decreases at a known rate. By amplifying this voltage change, we can generate an analog signal that is directly proportional to the temperature.
 The LM35 is straightforward to use. Connect the left pin of the sensor to a power source (4V to 30V), and connect the right pin to ground (assuming the flat side of the sensor is facing you). The middle pin will output an analog voltage that is linearly proportional to the temperature in °C. This relationship is shown in the LM35's output voltage vs. temperature characteristic. It's important to note that the analog output voltage is independent of the power supply.
@@ -137,6 +149,8 @@ Interfacing the LM35 temperature sensor with an Arduino UNO is straightforward. 
 
 # Practical-7
 
+## OBJECTIVE: To implement the Pressure sensor interfacing using Arduino UNO
+
 ## Pressure Sensor - MPL3115A2:
 The MPL3115A2 is a digital pressure sensor from Freescale that provides accurate pressure and temperature readings. It utilizes the I2C (Inter-Integrated Circuit) bus for data exchange with the Arduino.
 I2C is a two-wire interface that allows multiple devices to be connected on the same bus, making it ideal for sensor communication. The MPL3115A2 sensor can be used in various applications, such as weather stations or altitude measurement systems.
@@ -148,6 +162,8 @@ To interface the MPL3115A2 pressure sensor with Arduino, you'll need to connect 
 4. Breadboard
 
 # Practical-8
+
+## OBJECTIVE: To implement the Light Sensor interfacing using Arduino UNO
 
 ## Light Sensor:
 A light sensor, also known as a photoresistor or LDR (Light Dependent Resistor), is a component that changes its resistance based on the intensity of light falling on it. This property can be utilized to automatically control the lighting system in a room.
@@ -169,6 +185,8 @@ The setup is now ready. Now, load the following code into the Arduino IDE and up
 
 
 # Practical-9
+
+## OBJECTIVE: To implement the LED blink using the Raspberry Pi
 
 In this practical, we will build a simple LED circuit and make it controllable from the Raspberry Pi using the General-Purpose Input/Output (GPIO) pins. The GPIO pins on the Raspberry Pi allow us to interface with external devices, such as LEDs, sensors, and more.
 ## LED Circuit:
@@ -201,3 +219,30 @@ A basic LED circuit consists of an LED and a current-limiting resistor. The resi
     * Use the GPIO.output() function to control the state of the GPIO pin and toggle the LED on and off.
     * Add a delay using the time.sleep() function to create the blinking effect.
     * Run the code and observe the LED blinking.
+
+# Practical-10
+
+## OBJECTIVE: To implement the Motion Sensor using the Raspberry Pi
+
+In this project, we will learn how to interface a Passive Infrared (PIR) motion sensor with Raspberry Pi. The PIR sensor detects changes in infrared radiation emitted by a person, enabling us to create a motion detection alarm system as a DIY project.
+
+PIR sensors, also known as IR motion sensors or pyroelectric sensors, detect infrared radiation emitted by living and non-living objects with a temperature greater than absolute zero. These emitted infrared radiations are not visible to humans, as their wavelength is greater than that of visible light.
+
+The PIR sensor used in this project has three pins: VCC, DATA, and GND. Additionally, it has two potentiometers for adjusting the sensitivity and output timing of the sensor.
+
+Components Required:
+
+Raspberry Pi 3 Model B
+PIR Sensor
+5V Buzzer
+Connecting wires
+Mini breadboard
+Power supply
+Computer
+Circuit Design:
+
+Connect the VCC pin of the PIR motion sensor to the +5V pin of the Raspberry Pi.
+Connect the GND pin of the PIR motion sensor to the GND pin of the Raspberry Pi.
+Connect the DATA pin of the PIR motion sensor to GPIO 23 (Physical Pin 16) of the Raspberry Pi.
+Connect one pin of the 5V buzzer to GPIO 24 (Physical Pin 18) of the Raspberry Pi.
+Connect the other pin of the buzzer to GND.
