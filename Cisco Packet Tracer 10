@@ -1,0 +1,44 @@
+import RPi.GPIO as GPIO
+import time
+
+sensor = 16
+buzzer = 18
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(sensor, GPIO.IN)
+GPIO.setup(buzzer, GPIO.OUT)
+
+GPIO.output(buzzer, False)
+print("Initializing PIR Sensor...")
+time.sleep(12)
+print("PIR Ready...")
+print(" ")
+
+try:
+    while True:
+        if GPIO.input(sensor):
+            GPIO.output(buzzer, True)
+            print("Motion Detected")
+            while GPIO.input(sensor):
+                time.sleep(0.2)
+        else:
+            GPIO.output(buzzer, False)
+
+except KeyboardInterrupt:
+    GPIO.cleanup()
+
+
+Explanation:
+
+The code starts by importing the necessary modules: RPi.GPIO for GPIO control and time for delays.
+GPIO pins 16 (sensor) and 18 (buzzer) are set up using GPIO.setup().
+The buzzer is initially turned off by setting the GPIO pin 18 to False using GPIO.output().
+The PIR sensor is given a 12-second initialization time using time.sleep() to stabilize its readings.
+The code enters a continuous loop to check for motion detection.
+If motion is detected (GPIO.input(sensor) returns True), the buzzer is turned on by setting the GPIO pin 18 to True.
+The message "Motion Detected" is printed to the console.
+The code waits in a nested loop until the sensor no longer detects motion (GPIO.input(sensor) returns False).
+The buzzer is turned off by setting the GPIO pin 18 to False.
+The loop continues to check for motion detection.
+If the user interrupts the code execution with a keyboard interrupt (Ctrl+C), the GPIO pins are cleaned up using GPIO.cleanup().
+By running this code on the Raspberry Pi with the PIR sensor and buzzer connected as described in the circuit design, the motion sensor system will activate
