@@ -1,0 +1,42 @@
+const int ledPin = 13;
+const int ldrPin = A0;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(ledPin, OUTPUT);
+  pinMode(ldrPin, INPUT);
+}
+
+void loop() {
+  int ldrStatus = analogRead(ldrPin);
+
+  if (ldrStatus <= 400) {
+    digitalWrite(ledPin, HIGH);
+    Serial.print("It's dark. Turn on the LED. Light Intensity: ");
+    Serial.println(ldrStatus);
+  } else {
+    digitalWrite(ledPin, LOW);
+    Serial.print("It's bright. Turn off the LED. Light Intensity: ");
+    Serial.println(ldrStatus);
+  }
+}
+
+
+
+Explanation:
+
+The code begins with the declaration of constant variables for the LED pin (13) and the LDR pin (A0). The LDR pin is used as an analog input to read the light intensity.
+
+In the setup() function, the serial communication is initialized for debugging purposes, and the LED pin and LDR pin are defined as output and input, respectively.
+
+The loop() function is where the main logic resides. It reads the analog value from the LDR using the analogRead() function and stores it in the ldrStatus variable.
+
+If the ldrStatus value is less than or equal to 400, indicating a dark environment, the LED pin is set to HIGH to turn on the LED, and a corresponding message is printed via serial communication.
+
+If the ldrStatus value is greater than 400, indicating a bright environment, the LED pin is set to LOW to turn off the LED, and a corresponding message is printed via serial communication.
+
+By implementing this code and following the circuit connections, the LED will automatically turn on when the surroundings become dark and turn off when the surroundings become bright.
+
+Note: Adjust the threshold value (400) in the code according to the light intensity conditions in your environment.
+
+This practical demonstrates the basic functionality of a light sensor interfaced with Arduino UNO. Depending on your specific requirements, you may need to modify the code or add additional features.
