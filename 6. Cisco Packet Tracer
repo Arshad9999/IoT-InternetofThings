@@ -1,0 +1,44 @@
+
+// Define the analog pin; the LM35's Vout pin is connected to
+#define sensorPin A0
+
+void setup() {
+  // Begin serial communication at 9600 baud rate
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Get the voltage reading from the LM35
+  int reading = analogRead(sensorPin);
+
+  // Convert the reading into voltage
+  float voltage = reading * (5.0 / 1024.0);
+
+  // Convert the voltage into the temperature in Celsius
+  float temperatureC = voltage * 100;
+
+  // Print the temperature in Celsius
+  Serial.print("Temperature: ");
+  Serial.print(temperatureC);
+  Serial.print("\xC2\xB0"); // Display the degree symbol
+  Serial.print("C |  ");
+  
+  // Convert the temperature to Fahrenheit
+  float temperatureF = (temperatureC * 9.0 / 5.0) + 32.0;
+  Serial.print(temperatureF);
+  Serial.print("\xC2\xB0"); // Display the degree symbol
+  Serial.println("F");
+
+  delay(1000); // Wait for a second between readings
+}
+
+
+
+
+In the code example above, we define the analog pin (sensorPin) to which the LM35's Vout pin is connected. In the setup() function, we initialize the serial communication. In the loop() function, we read the analog value from the LM35, convert it to voltage, and then calculate the temperature in both Celsius and Fahrenheit. The results are printed to the serial monitor.
+
+Note: Make sure to select the correct board and port in the Arduino IDE before uploading the code to the Arduino UNO.
+
+By implementing temperature sensor interfacing with Arduino UNO, you can accurately measure and display temperature readings for various applications.
+
+Overall, your explanation provides a good overview of temperature sensor interfacing using Arduino UNO. You can further enhance it by discussing potential applications of temperature sensing with Arduino, such as environmental monitoring, home automation, or industrial control systems. Additionally, including a schematic or circuit diagram of the connections between the LM35 and Arduino UNO would be beneficial for visual reference.
