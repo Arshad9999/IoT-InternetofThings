@@ -1,3 +1,19 @@
+# Internet of Things Lab Notes
+
+Networking lab notes describing topologies and Cisco Packet Tracer exercises.
+
+## Usage
+
+Browse the files directly on GitHub. This is learning material rather than a packaged application, so no build command or deployment is implied.
+
+## License
+
+No repository-wide license was detected. No new license has been assigned; the owner must choose appropriate terms and verify rights to included material.
+
+---
+
+## Original learning material
+
 # IoT-InternetofThings
 
 # Practical-1
